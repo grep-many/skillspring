@@ -26,10 +26,10 @@ jobs:
           cd client  # Navigate to the client folder
           npm ci
       
-      - name: Check if VITE_SERVER_URL secret is available
+      - name: Check if VITE_BASEURL secret is available
         run: |
-          if [ -z "${{ secrets.VITE_SERVER_URL}}" ]; then
-            echo "VITE_SERVER_URL is not set. Cancelling the workflow."
+          if [ -z "${{ secrets.VITE_BASEURL}}" ]; then
+            echo "VITE_BASEURL is not set. Cancelling the workflow."
             exit 1  # Exit the workflow if the secret is not found
           fi
       
