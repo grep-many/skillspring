@@ -1,0 +1,64 @@
+name: Deploy VITE site to GitHub Pages
+on:
+  push:
+    branches: ["main"]  # Change this to your default branch if it's different
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install dependencies
+        run: |
+          cd client  # Navigate to the client folder
+          npm ci
+      
+      - name: Check if VITE_SERVER_URL secret is available
+        run: |
+          if [ -z "${{ secrets.VITE_SERVER_URL}}" ]; then
+            echo "VITE_SERVER_URL is not set. Cancelling the workflow."
+            exit 1  # Exit the workflow if the secret is not found
+          fi
+      
+      - name: Copy .env file
+        run: |
+          cd client  # Navigate to the client folder
+          echo "VITE_BASEURL=${{ secrets.VITE_BASEURL}}" >> .env
+      
+      - name: Build the VITE app
+        run: |
+          cd client  # Navigate to the client folder
+          npm run build
+      
+      - name: Create 404.html for routing support
+        run: |
+          cd client  # Navigate to the client folder
+          cp dist/index.html dist/404.html
+      
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./client/dist  # Specify the path to the dist directory
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
