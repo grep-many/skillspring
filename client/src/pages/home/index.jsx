@@ -17,6 +17,7 @@ const HomePage = () => {
     navigate,
     signUpFormData,
     setSignUpFormData,
+    setActiveTab,
   } = useContext(AuthContext);
   const {
     studentViewCoursesList,
@@ -33,6 +34,7 @@ const HomePage = () => {
   const testimonialsInView = useIntersection(testimonialsRef, { threshold: 0.3 });
 
   const handleInstructorNavigate = () => {
+    setActiveTab('signup');
     navigate('auth')
     setSignUpFormData({
       ...signUpFormData,
@@ -41,6 +43,7 @@ const HomePage = () => {
   }
 
   const handleExploreNavigate = () => {
+    setActiveTab('signup');
     (auth.authenticate&&auth.user.role === 'instructor') ?
       navigate('instructor/explore')
       : navigate('student/student-courses')
@@ -73,16 +76,16 @@ const HomePage = () => {
         className="relative h-[512px] bg-cover bg-fixed bg-center text-center py-28 px-4"
         style={{ backgroundImage: `url(${hero})` }}
       >
-        <div className="absolute inset-0 backdrop-blur-sm"></div>
+        <div className="absolute inset-0 backdrop-blur-[1px]"></div>
         <h1 className="text-4xl md:text-6xl font-bold mb-4 text-white relative z-10">Learn. Teach. Connect.</h1>
         <p className="text-lg md:text-xl text-gray-200 mb-8 relative z-10">
           A platform where anyone can teach and anyone can learn. Start your journey today!
         </p>
         <div className="flex justify-center gap-4 relative z-10">
-          <button onClick={handleExploreNavigate} className="bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-900">
+          <button onClick={handleExploreNavigate} className="bg-white text-black px-6 py-3 rounded-md font-medium hover:bg-gray-900 hover:text-white">
             Explore Courses
           </button>
-          <button onClick={handleInstructorNavigate} className="border border-black text-black px-6 py-3 rounded-md font-medium hover:bg-gray-100">
+          <button onClick={handleInstructorNavigate} className="border border-white text-white px-6 py-3 rounded-md font-medium hover:bg-gray-100 hover:text-black">
             Start Teaching
           </button>
         </div>

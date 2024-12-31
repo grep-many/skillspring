@@ -13,6 +13,7 @@ export default function AuthProvider({ children }) {
     const [signUpFormData, setSignUpFormData] = useState(initialSignUpFormData);
     const [serverStatus, setServerStatus] = useState(null)
     const [progress, setProgress] = useState(0);
+    const [activeTab, setActiveTab] = useState('signup');
     const [auth, setAuth] = useState({
         authenticate: false,
         user: null,
@@ -170,6 +171,8 @@ export default function AuthProvider({ children }) {
             location,
             checkServerStatus,
             serverStatus,
+            activeTab, 
+            setActiveTab,
         }}>
             <LoadingBar color='#000' progress={progress} />
             {children}

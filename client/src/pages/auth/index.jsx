@@ -7,14 +7,15 @@ import { AuthContext } from '@/context/auth-context';
 
 const AuthPage = () => {
 
-    const [activeTab, setActiveTab] = useState('signin');
-    const { 
-        signInFormData, 
-        setSignInFormData, 
-        signUpFormData, 
-        setSignUpFormData, 
+    const {
+        signInFormData,
+        setSignInFormData,
+        signUpFormData,
+        setSignUpFormData,
         handleRegisterUser,
-        handleLoginUser, 
+        handleLoginUser,
+        activeTab,
+        setActiveTab,
     } = useContext(AuthContext);
 
     function validateSignInFormIsValid() {

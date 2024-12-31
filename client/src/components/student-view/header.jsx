@@ -1,11 +1,16 @@
 import { GraduationCap, LogIn, LogOut, Menu, SearchCode, TvMinimalPlay, X } from 'lucide-react';
 import React, { useContext, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { AuthContext } from '@/context/auth-context';
 
 const StudentViewCommonHeader = () => {
-    const { auth, navigate, location } = useContext(AuthContext);
+    const {
+        auth,
+        navigate,
+        location,
+        setActiveTab,
+    } = useContext(AuthContext);
     const [navbarOpen, setNavbarOpen] = useState(false);
     const { resetCredentials } = useContext(AuthContext);
 
@@ -16,12 +21,12 @@ const StudentViewCommonHeader = () => {
 
     return (
         <header
-            className={`flex items-center justify-between p-4 border-b ${!(location.pathname.includes('auth') || location.pathname.includes('student') || location.pathname.includes('instructor')) ?'fixed w-full':'sticky'} top-0 z-20 transition-all duration-300 ease-in-out ${location.pathname.includes('student') ? 'bg-white' : 'backdrop-blur bg-opacity-20 bg-white'}`}
+            className={`flex items-center justify-between p-4 border-b ${!(location.pathname.includes('auth') || location.pathname.includes('student') || location.pathname.includes('instructor')) ? 'fixed w-full' : 'sticky'} top-0 z-20 transition-all duration-300 ease-in-out ${location.pathname.includes('student') ? 'bg-white' : 'backdrop-blur bg-opacity-20 bg-white'}`}
         >
             {/* Left Section: Logo */}
             <div className="flex items-center space-x-4">
                 <Link
-                    to={auth.authenticate?auth.user.role==='instructor'?"/instructor":"/student":'/'}
+                    to={auth.authenticate ? auth.user.role === 'instructor' ? "/instructor" : "/student" : '/'}
                     className="flex items-center hover:text-black transition-all duration-300 ease-in-out"
                     onClick={() => setNavbarOpen(false)}
                 >
@@ -31,15 +36,18 @@ const StudentViewCommonHeader = () => {
             </div>
 
             {/* Join Button or Hamburger Menu */}
-            {!(location.pathname.includes('auth') ||location.pathname.includes('payment-return') || location.pathname.includes('student') || location.pathname.includes('instructor')) ? (
+            {!(location.pathname.includes('auth') || location.pathname.includes('payment-return') || location.pathname.includes('student') || location.pathname.includes('instructor')) ? (
                 <Button
-                    onClick={() => navigate('/auth')}
+                    onClick={() => {
+                        setActiveTab('signup');
+                        navigate('/auth')
+                    }}
                     className="px-4 py-2 bg-black text-white font-bold hover:bg-gray-800 transition-all duration-300"
                 >
                     <LogIn className="w-5 h-5" />
                     Join
                 </Button>
-            ) : location.pathname.includes('auth')?null:(
+            ) : location.pathname.includes('auth') ? null : (
                 <>
                     {/* Hamburger Menu for Mobile */}
                     <button
