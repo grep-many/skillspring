@@ -1,0 +1,64 @@
+/* HTML: <div class="loader"></div> */
+.loader {
+    width: fit-content;
+    font-weight: bold;
+    font-family: monospace;
+    white-space: pre;
+    font-size: 30px;
+    line-height: 1.2em;
+    height:1.2em;
+    overflow: hidden;
+  }
+  .loader:before {
+    content:"Loading...\A⌰oading...\A⌰⍜ading...\A⌰⍜⏃ding...\A⌰⍜⏃⎅ing...\A⌰⍜⏃⎅⟟ng...\A⌰⍜⏃⎅⟟⋏g...\A⌰⍜⏃⎅⟟⋏☌...\A⌰⍜⏃⎅⟟⋏☌⟒..\A⌰⍜⏃⎅⟟⋏☌⟒⏁.\A⌰⍜⏃⎅⟟⋏☌⟒⏁⋔"; 
+    white-space: pre;
+    display: inline-block;
+    animation: l39 1s infinite steps(11) alternate;
+  }
+  
+  @keyframes l39 {
+    100%{transform: translateY(-100%)}
+  }
+
+.loading.error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height:clamp(90vh,90vh,100vh) ;
+    margin: 2rem;
+    text-align: center;
+
+    h2 {
+        /* font-size: 2rem; */
+        font-weight: 900;
+    }
+
+    p {
+        font-weight: 900;
+    }
+
+    button {
+        margin: 1rem;
+        padding: 0 10px;
+        background-color: black;
+        color: white;
+        border: 2px solid black;
+        cursor: pointer;
+        font-size: 2rem;
+        font-weight: 900;
+        width: fit-content;
+        transition: 0.3s;
+        border-radius: 10px;
+
+        &:hover {
+            background-color: white;
+            color: black;
+        }
+
+        &:active{
+            transform: scale(0.9);
+        }
+
+    }
+}
