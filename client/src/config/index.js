@@ -74,6 +74,7 @@ export const initialSignUpFormData = {
 
 export const languageOptions = [
     { id: "english", label: "English" },
+    { id: "hindi", label: "Hindi" },
     { id: "spanish", label: "Spanish" },
     { id: "french", label: "French" },
     { id: "german", label: "German" },
