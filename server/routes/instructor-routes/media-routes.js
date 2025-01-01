@@ -14,23 +14,13 @@ function generateUniqueId() {
     return `${date}-${randomString}`;
 }
 
-// Configure Multer with storage and limits
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => cb(null, '/uploads/'),
-    filename: (req, file, cb) => cb(null, file.originalname),
-});
-
 function isValidYouTubeURL(url) {
     const youtubeRegex = /^(https?:\/\/)?(www\.)?(youtube\.com\/(watch\?.*v=|playlist\?|embed\/)|youtu\.be\/)([\w-]{11}(&.*)?|.*list=([\w-]+))/;
     return youtubeRegex.test(url);
 }
 
-const upload = multer({
-    storage,
-    limits: {
-        fileSize: 5 * 1024 * 1024 * 1024, // 5GB limit
-    },
-});
+// configure multer
+const upload = multer({ dest: "uploads/" });
 
 // POST: Upload file to Cloudinary
 router.post('/upload', upload.single('file'), async (req, res) => {
