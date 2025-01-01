@@ -1,5 +1,4 @@
-const multer = require('multer');
-const { uploadMediaToCloudinary, deleteMediaFromCloudinary } = require('../../helpers/cloudinary');
+const { uploadMediaToCloudinary, deleteMediaFromCloudinary } = require('../helpers/cloudinary');
 const fs = require('fs');
 const ytpl = require('ytpl');
 const ytdl = require('ytdl-core');
